@@ -1,5 +1,3 @@
-#pip install tweepy
-#pip install OpenAI
 from tools import Timer
 import sqlite3
 import openai
@@ -62,4 +60,7 @@ tweet_pull('NateSilver538','1676980499410202624')
 #sentiment = sentiment_analysis("TESTING TESTING 123")
 #print(sentiment)
 #print("finished")
+
+
+#dataset credits: https://www.kaggle.com/datasets/bwandowando/ukraine-russian-crisis-twitter-dataset-1-2-m-rows?select=0825_UkraineCombinedTweetsDeduped.csv.gzip
 
