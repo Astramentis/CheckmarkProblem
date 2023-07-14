@@ -4,28 +4,26 @@ import openai
 import key
 import string
 openai.api_key = key.AIkey
+conn = sqlite3.connect('CheckMark.db')
+cursor = conn.cursor()
+t = Timer()
 
 def sentiment_analysis(text):
     MODEL = "gpt-3.5-turbo"
     response = openai.ChatCompletion.create(
         model = MODEL,
         messages=[
-        {"role": "system", "content": "You are performing text analysis."},
-        {"role": "user", "content": "Yes or no only, is the following comment toxic: " + text},
+        {"role": "system", "content": "You are performing Flesch Kincaid grade level text analysis."},
+        {"role": "user", "content": "Grade level reply only, what is the Flesch Kincaid grade level of the following passage: " + text},
         ],
         temperature = 0,    
-        max_tokens = 250,
+        max_tokens = 350,
     )
     message = response["choices"][0]["message"]["content"].strip().lower().translate(str.maketrans('', '', string.punctuation))
-    sentiment = None
-    if "yes" in message:
-        sentiment = "1"
-    elif "no" in message:
-        sentiment = "2"
-    else:
-        sentiment = "0"
+    print(message)
     #ratelimit here
-    return sentiment  
+    return message  
+
 
 #sentiment = sentiment_analysis("TESTING TESTING 123")
 #print(sentiment)
