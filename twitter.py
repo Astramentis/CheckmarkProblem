@@ -8,7 +8,7 @@ conn = sqlite3.connect('CheckMark.db')
 cursor = conn.cursor()
 t = Timer()
 
-def sentiment_analysis(text):
+def text_analysis(text):
     MODEL = "gpt-3.5-turbo"
     response = openai.ChatCompletion.create(
         model = MODEL,
@@ -25,9 +25,9 @@ def sentiment_analysis(text):
     return message  
 
 
-#sentiment = sentiment_analysis("TESTING TESTING 123")
-#print(sentiment)
-#print("finished")
+analysis = text_analysis("The floor was covered with snow-white canvas, not laid on smoothly, but rumpled over bumps and hillocks, like a real snow field. The numerous palms and evergreens that had decorated the room, were powdered with flour and strewn with tufts of cotton, like snow. Also diamond dust had been lightly sprinkled on them, and glittering crystal icicles hung from the branches.")
+print(analysis)
+print("finished")
 
 
 #dataset credits: https://www.kaggle.com/datasets/bwandowando/ukraine-russian-crisis-twitter-dataset-1-2-m-rows?select=0825_UkraineCombinedTweetsDeduped.csv.gzip
