@@ -25,7 +25,7 @@ def text_analysis(text):
     time.sleep(3)
     return message, numeric
 
-cursor.execute("SELECT id, excerpt FROM Benchmark WHERE GPT_Score IS NULL ORDER BY id ASC LIMIT 1")
+cursor.execute("SELECT id, excerpt FROM Benchmark WHERE GPT_Score IS NULL ORDER BY id ASC")
 rows = cursor.fetchall()
 
 # Perform text analysis on each excerpt and update database 
