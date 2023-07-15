@@ -20,13 +20,14 @@ def text_analysis(text):
         max_tokens = 350,
     )
     message = response["choices"][0]["message"]["content"].strip().lower().translate(str.maketrans('', '', string.punctuation))
-    print(message)
+    numeric = ''.join(filter(str.isdigit, message))
     #ratelimit here
-    return message  
+    return message, numeric
 
 
-analysis = text_analysis("The floor was covered with snow-white canvas, not laid on smoothly, but rumpled over bumps and hillocks, like a real snow field. The numerous palms and evergreens that had decorated the room, were powdered with flour and strewn with tufts of cotton, like snow. Also diamond dust had been lightly sprinkled on them, and glittering crystal icicles hung from the branches.")
+analysis, numeric = text_analysis("The floor was covered with snow-white canvas, not laid on smoothly, but rumpled over bumps and hillocks, like a real snow field. The numerous palms and evergreens that had decorated the room, were powdered with flour and strewn with tufts of cotton, like snow. Also diamond dust had been lightly sprinkled on them, and glittering crystal icicles hung from the branches.")
 print(analysis)
+print(numeric)
 print("finished")
 
 
