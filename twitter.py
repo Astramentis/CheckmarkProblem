@@ -28,7 +28,7 @@ def text_analysis(text):
 cursor.execute("SELECT rowid, text FROM BitcoinFiltered WHERE GPT_Score IS NULL AND user_verified = 'True' ORDER BY RANDOM() LIMIT 500")
 rows = cursor.fetchall()
 
-# Perform text analysis on each excerpt and update database 
+# Perform text analysis on each excerpt and update table 
 for row in rows:
     try:
         id  = row[0]
@@ -36,16 +36,10 @@ for row in rows:
         assessment,score = text_analysis(text)
         print(assessment)
         print(score)
-        #remember change database! ↓ ↓ ↓ ↓ 
+        #remember change table! ↓ ↓ ↓ ↓ 
         cursor.execute("UPDATE BitcoinFiltered SET GPT_ASSESSMENT = ?, GPT_Score = ? WHERE rowid = ?", (assessment, score, id))
         conn.commit()
     except:
         traceback.print_exc()
-        break
-
-'''
-analysis, numeric = text_analysis("The floor was covered with snow-white canvas, not laid on smoothly, but rumpled over bumps and hillocks, like a real snow field. The numerous palms and evergreens that had decorated the room, were powdered with flour and strewn with tufts of cotton, like snow. Also diamond dust had been lightly sprinkled on them, and glittering crystal icicles hung from the branches.")
-print(analysis)
-print(numeric)
-print("finished")
-'''
+        time.sleep(60)
+        continue
