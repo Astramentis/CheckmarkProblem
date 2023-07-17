@@ -1,0 +1,66 @@
+---
+title: "GPT_Markdown"
+author: "Wesley Hudgens"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+Load libraries:
+```{r, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(readr)
+library(tidyverse)
+```
+Load data and preview:
+```{r, warning=FALSE}
+benchmark <- read.csv("Benchmark.csv", header = TRUE)
+tweets <- read.csv("BitcoinGPT.csv", header = TRUE)
+```
+## Analysis
+```{r, warning=FALSE}
+ggplot(data = benchmark,
+       mapping = aes(
+         x = Flesch_Kincaid_Grade_Level,
+         y = GPT_Score)) +
+  geom_point()+
+  geom_jitter(height=5)+
+  geom_smooth(method = lm, formula = y ~ x, se = TRUE)
+```
+This plot graphs the GPT score against the Flesh_Kincaid assessment of the CLEAR Corpus assessments, and while they aren't identical in their measurement style the trend remains the same; a higher number indicates something more difficult to read.  
+
+For more details on the Clear Corpus dataset and a link to download the original data set used please visit <https://github.com/scrosseye/CLEAR-Corpus> 
+
+```{r, warning=FALSE}
+correlation <- cor(benchmark$Flesch_Kincaid_Grade_Level, benchmark$GPT_Score)
+print(correlation)
+```
+Calculate the exact correlation, print. My research resulted in a correlation of 0.3721114, however, if you replicate the analysis with the same text, but re-run through GPT the score will likely be different, as the LLM isn't consistent with ratings. 
+
+```{r, warning=FALSE}
+df <- data.frame(tweets$user_verified, tweets$GPT_Score)
+```
+Note: due to some tweets being completely comprised of stock tickers and emojis, a FKGL score was not given by GPT, reassigning the variables to an independent data frame removes null inputs.
+
+```{r, warning=FALSE}
+ggplot(df, aes(fill = tweets.user_verified, x = tweets.GPT_Score)) +
+  geom_histogram(binwidth = 5, position = "dodge") +
+  labs(title = "GPT score frequency compared to user verification", x = "GPT Score", y = "Count") +
+  scale_fill_manual(name = "User Verified", values = c("black", "blue")) +
+  coord_cartesian(ylim = c(NA, 350))+
+  coord_cartesian(xlim = c(NA, 120))
+```
+
+A graph of GPT score frequency, breaking out scores based on user verification to look for an obvious trend or weight that user verification has on this proxy for tweet quality. 
+
+```{r, warning=FALSE}
+#Average scores
+average_scores <- aggregate(tweets.GPT_Score ~ tweets.user_verified, data = df, FUN = mean)
+print(average_scores)
+
+#Median scores
+median_scores <- aggregate(tweets.GPT_Score ~ tweets.user_verified, data = df, FUN = median)
+print(median_scores)
+```
+
+Due to how unclear the trend is in the visuals, calculate averages and medians
