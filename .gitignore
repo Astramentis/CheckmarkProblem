@@ -7,3 +7,6 @@ key.py
 *.db
 CLEAR Corpus 6.01 - CLEAR Corpus 6.01.csv
 *.db-journal
+.Rproj.user
+*.png
+*.csv
