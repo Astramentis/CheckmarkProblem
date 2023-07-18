@@ -28,7 +28,7 @@ print(correlation)
 #cleaning the tweets into a data frame to remove missing values and irrelevant data
 df <- data.frame(tweets$user_verified, tweets$GPT_Score)
 
-#plot scores against counting for 
+#visual of GPT scores by user verification 
 ggplot(df, aes(fill = tweets.user_verified, x = tweets.GPT_Score)) +
   geom_histogram(binwidth = 5, position = "dodge") +
   labs(title = "GPT score frequency compared to user verification", x = "GPT Score", y = "Count") +

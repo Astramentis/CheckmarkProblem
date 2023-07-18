@@ -1,5 +1,5 @@
 ---
-title: "GPT_Markdown"
+title: "GPT as a tool for Flesch Kincaid analysis"
 author: "Wesley Hudgens"
 date: "`r Sys.Date()`"
 output: html_document
@@ -17,6 +17,12 @@ Load data and preview:
 benchmark <- read.csv("Benchmark.csv", header = TRUE)
 tweets <- read.csv("BitcoinGPT.csv", header = TRUE)
 ```
+The development of both data sets was built from the GPT3.5 API and a python script between 07/15/2023 and 07/16/2023. Future updates to the API and model may radically change the results of text assessment in the future.
+
+All associated files including the final data used in this analysis can be found in the project repository <stored in this projects GitHub repository. 
+
+<https://github.com/Astramentis/CheckmarkProblem>>
+
 ## Analysis
 ```{r, warning=FALSE}
 ggplot(data = benchmark,
@@ -29,7 +35,7 @@ ggplot(data = benchmark,
 ```
 This plot graphs the GPT score against the Flesh_Kincaid assessment of the CLEAR Corpus assessments, and while they aren't identical in their measurement style the trend remains the same; a higher number indicates something more difficult to read.  
 
-For more details on the Clear Corpus dataset and a link to download the original data set used please visit <https://github.com/scrosseye/CLEAR-Corpus> 
+For more details on the Clear Corpus data set and a link to download the original data set used please visit <https://github.com/scrosseye/CLEAR-Corpus> 
 
 ```{r, warning=FALSE}
 correlation <- cor(benchmark$Flesch_Kincaid_Grade_Level, benchmark$GPT_Score)
