@@ -5,7 +5,7 @@ import string
 import traceback
 import time
 openai.api_key = key.AIkey
-conn = sqlite3.connect('C:/Users/Wesley/Documents/GitHub/DataAnalysis/CheckmarkProblem/CheckMark.db')
+conn = sqlite3.connect('CheckMark.db')
 cursor = conn.cursor()
 
 def text_analysis(text):
